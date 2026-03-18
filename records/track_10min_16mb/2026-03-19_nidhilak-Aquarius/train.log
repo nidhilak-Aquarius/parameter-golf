@@ -1,43 +1,40 @@
+C:\Users\ASUS\parameter-golf\train_gpt_optimized.py:433: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(dtype == torch.bfloat16 and device.type == 'cuda'))
+
 ============================================================
-PARAMETER GOLF — Recurrent MQA Transformer
+PARAMETER GOLF   Recurrent MQA Transformer
 Innovations: Depth Recurrence + MQA + Weight Tying + RoPE + SwiGLU
 ============================================================
 Config: dim=512, layers=12, heads=8/1 Q/KV, vocab=1024
 Using device: cpu, dtype: torch.float32
-
-Unique parameters: 3,493,888
-Effective parameters (with 12x recurrence): 41,926,656
-
-Estimated artifact size: 5.21MB (model: 4.98MB, code: 0.23MB)
-Under 16MB limit: YES
-
+Unique parameters: 3,278,336
+Effective parameters (with 12x recurrence): 39,340,032
+Estimated artifact size: 2.84MB (model: 2.82MB, code: 0.02MB)
 SMOKE TEST: Using random data
 
 ============================================================
 Starting training: recurrent_mqa_v1
 ============================================================
-step    10 | loss 6.9021 | lr 3.00e-04 | grad_norm 1.043 | 0.0M tok/s | 3s elapsed
-step    20 | loss 6.4812 | lr 6.00e-04 | grad_norm 0.998 | 0.0M tok/s | 7s elapsed
-step    30 | loss 5.9934 | lr 9.00e-04 | grad_norm 0.971 | 0.0M tok/s | 11s elapsed
-step    40 | loss 5.5281 | lr 1.20e-03 | grad_norm 0.944 | 0.0M tok/s | 14s elapsed
-step    50 | loss 5.1047 | lr 1.50e-03 | grad_norm 0.921 | 0.0M tok/s | 18s elapsed
+step    10 | loss 0.0361 | lr 3.00e-04 | grad_norm 0.024 | 0.2M tok/s | 30s elapsed
+step    20 | loss 0.0135 | lr 6.00e-04 | grad_norm 0.006 | 0.2M tok/s | 63s elapsed
+step    30 | loss 0.0026 | lr 9.00e-04 | grad_norm 0.001 | 0.2M tok/s | 96s elapsed
+step    40 | loss 0.0005 | lr 1.20e-03 | grad_norm 0.000 | 0.2M tok/s | 129s elapsed
+step    50 | loss 0.0001 | lr 1.50e-03 | grad_norm 0.000 | 0.2M tok/s | 162s elapsed
 
 ============================================================
 FINAL EVALUATION
 ============================================================
-Final artifact size: 5.21MB
-  - Compressed model: 4.98MB
-  - Code: 0.23MB
-  - Under 16MB limit: ✅ YES
 
-NOTE: val_bpb on real FineWeb data pending GPU compute.
-      Smoke test uses random data — loss values are not meaningful scores.
-      Real val_bpb will be reported after first GPU run.
-
-Architecture confirmed working:
-  - Depth recurrence: 1 shared block x 12 loops ✅
-  - Weight-tied embeddings: embed.weight used for output projection ✅
-  - Multi-Query Attention: 8Q / 1KV heads ✅
-  - SwiGLU FFN ✅
-  - RoPE position encoding (0 learned params) ✅
-  - Artifact under 16MB ✅
+Final artifact size: 2.82MB
+  - Compressed model: 2.81MB
+  - Code: 0.02MB
+Traceback (most recent call last):
+  File "C:\Users\ASUS\parameter-golf\train_gpt_optimized.py", line 554, in <module>
+    model = train(config)
+            ^^^^^^^^^^^^^
+  File "C:\Users\ASUS\parameter-golf\train_gpt_optimized.py", line 508, in train
+    print(f"  - Under 16MB limit: {'\u2705 YES' if total_bytes < 16_000_000 else '\u274c NO'}")
+  File "C:\Users\ASUS\anaconda3\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 22: character maps to <undefined>
